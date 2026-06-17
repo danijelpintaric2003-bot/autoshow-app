@@ -1,3 +1,5 @@
+import "./App.css";
+import logo from "./assets/devilscrew.png";
 import { useState, useEffect } from "react";
 import { supabase } from "./supabase";
 
@@ -155,8 +157,19 @@ function App() {
   }, [sortiranje]);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>🏁 Auto Show</h1>
+<div className="container">
+  <div className="header">
+    <img
+      src={logo}
+      alt="Devils Crew"
+      className="logo"
+    />
+
+    <h1>
+      DEVILS CREW
+      <span> AUTO SHOW</span>
+    </h1>
+  </div>
 
       {!user ? (
         <>
@@ -309,16 +322,18 @@ function App() {
 
             <tbody>
               {vozila.map((v, index) => (
-                <tr key={v.id}>
-                  <td>
-                    {index === 0
-                      ? "🥇"
-                      : index === 1
-                      ? "🥈"
-                      : index === 2
-                      ? "🥉"
-                      : index + 1}
-                  </td>
+<tr
+  key={v.id}
+  className={
+    index === 0
+      ? "gold"
+      : index === 1
+      ? "silver"
+      : index === 2
+      ? "bronze"
+      : ""
+  }
+>
 
                   <td>{v.ime_priimek}</td>
                   <td>{v.vozilo}</td>
@@ -350,6 +365,7 @@ function App() {
       )}
     </div>
   );
+  
 }
 
 export default App;
