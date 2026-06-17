@@ -79,6 +79,14 @@ function App() {
         Number(form.visina_sredina) +
         Number(form.visina_zadaj)) /
       3;
+      if (
+  !form.visina_spredaj ||
+  !form.visina_sredina ||
+  !form.visina_zadaj
+) {
+  alert("Vnesi vse tri višine.");
+  return;
+}
 
     const { error } = await supabase.from("vozila").insert([
 {
@@ -288,21 +296,32 @@ return (
 <br /><br />
 
 <div className="category-buttons">
-  <button onClick={() => setFilterKategorija("Vse")}>
-    Vse
-  </button>
+  <button
+  type="button"
+  onClick={() =>
+    setForm({ ...form, kategorija: "Vzmeti" })
+  }
+>
+  Vzmeti
+</button>
 
-  <button onClick={() => setFilterKategorija("Vzmeti")}>
-    Vzmeti
-  </button>
+<button
+  type="button"
+  onClick={() =>
+    setForm({ ...form, kategorija: "Gewinde" })
+  }
+>
+  Gewinde
+</button>
 
-  <button onClick={() => setFilterKategorija("Gewinde")}>
-    Gewinde
-  </button>
-
-  <button onClick={() => setFilterKategorija("Airride")}>
-    Airride
-  </button>
+<button
+  type="button"
+  onClick={() =>
+    setForm({ ...form, kategorija: "Airride" })
+  }
+>
+  Airride
+</button>
 </div>
             <br /><br />
 
@@ -389,7 +408,6 @@ return (
     setFilterKategorija(e.target.value)
   }
 >
-  <option value="Vse">Vse kategorije</option>
   <option value="Vzmeti">Vzmeti</option>
   <option value="Gewinde">Gewinde</option>
   <option value="Airride">Airride</option>
