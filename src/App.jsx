@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "./supabase";
 
 function App() {
+  const [aktivniZavihek, setAktivniZavihek] = useState("vnos");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
@@ -219,10 +220,36 @@ const prikazanaVozila =
           <button onClick={odjava}>
             Odjava
           </button>
+<div className="tabs">
+  <button
+    className={
+      aktivniZavihek === "vnos"
+        ? "active-tab"
+        : ""
+    }
+    onClick={() => setAktivniZavihek("vnos")}
+  >
+    📝 Vnos vozila
+  </button>
 
+  <button
+    className={
+      aktivniZavihek === "rezultati"
+        ? "active-tab"
+        : ""
+    }
+    onClick={() =>
+      setAktivniZavihek("rezultati")
+    }
+  >
+    🏆 Rezultati
+  </button>
+</div>
           <hr />
 
-          <form onSubmit={shrani}>
+         {aktivniZavihek === "vnos" && (
+<>
+<form onSubmit={shrani}>
             <input
               name="ime_priimek"
               placeholder="Ime in priimek"
@@ -245,9 +272,9 @@ const prikazanaVozila =
   value={form.kategorija}
   onChange={handleChange}
 >
-  <option value="Vzmeti">Airride</option>
+  <option value="Vzmeti">Vzmeti</option>
   <option value="Gewinde">Gewinde</option>
-  <option value="Airride">Vzmeti</option>
+  <option value="Airride">Airride</option>
 </select>
             <br /><br />
 
@@ -304,11 +331,15 @@ const prikazanaVozila =
             <button type="submit">
               Shrani
             </button>
-          </form>
+ </form>
+</>
 
-          <hr />
+)}
 
-          <h2>🏆 Lestvica vozil</h2>
+<hr />
+
+       {aktivniZavihek === "rezultati" && (
+<>
 
           <button
             onClick={() => setSortiranje("asc")}
@@ -331,9 +362,9 @@ const prikazanaVozila =
   }
 >
   <option value="Vse">Vse kategorije</option>
-  <option value="Airride">Airride</option>
-  <option value="Gewinde">Gewinde</option>
   <option value="Vzmeti">Vzmeti</option>
+  <option value="Gewinde">Gewinde</option>
+  <option value="Airride">Airride</option>
 </select>
           <br />
           <br />
@@ -403,6 +434,8 @@ const prikazanaVozila =
  </tbody>
             </table>
           </div>
+          </>
+)}
         </>
       )}
     </div>
