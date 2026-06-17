@@ -295,33 +295,36 @@ return (
             />
 <br /><br />
 
-<div className="category-buttons">
+<div className="kategorije">
   <button
-  type="button"
-  onClick={() =>
-    setForm({ ...form, kategorija: "Vzmeti" })
-  }
->
-  Vzmeti
-</button>
+    type="button"
+    className={form.kategorija === "Vzmeti" ? "active-category" : ""}
+    onClick={() =>
+      setForm({ ...form, kategorija: "Vzmeti" })
+    }
+  >
+    Vzmeti
+  </button>
 
-<button
-  type="button"
-  onClick={() =>
-    setForm({ ...form, kategorija: "Gewinde" })
-  }
->
-  Gewinde
-</button>
+  <button
+    type="button"
+    className={form.kategorija === "Gewinde" ? "active-category" : ""}
+    onClick={() =>
+      setForm({ ...form, kategorija: "Gewinde" })
+    }
+  >
+    Gewinde
+  </button>
 
-<button
-  type="button"
-  onClick={() =>
-    setForm({ ...form, kategorija: "Airride" })
-  }
->
-  Airride
-</button>
+  <button
+    type="button"
+    className={form.kategorija === "Airride" ? "active-category" : ""}
+    onClick={() =>
+      setForm({ ...form, kategorija: "Airride" })
+    }
+  >
+    Airride
+  </button>
 </div>
             <br /><br />
 

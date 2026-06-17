@@ -225,3 +225,37 @@ body {
 .category-buttons button {
   flex: 1;
 }
+.kategorije {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.kategorije button {
+  flex: 1;
+  background: #222;
+  border: 2px solid #444;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.active-category {
+  background: #ff0000 !important;
+  border-color: #ff4444 !important;
+  box-shadow: 0 0 15px red;
+  transform: scale(1.05);
+}
+.vzmeti-active {
+  background: #2196f3 !important;
+  box-shadow: 0 0 15px #2196f3;
+}
+
+.gewinde-active {
+  background: #ff9800 !important;
+  box-shadow: 0 0 15px #ff9800;
+}
+
+.airride-active {
+  background: #4caf50 !important;
+  box-shadow: 0 0 15px #4caf50;
+}
