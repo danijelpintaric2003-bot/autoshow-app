@@ -152,6 +152,13 @@ setForm({
       if (user) {
         naloziVozila();
       }
+      useEffect(() => {
+  const interval = setInterval(() => {
+    naloziVozila();
+  }, 10000);
+
+  return () => clearInterval(interval);
+}, []);
     };
 
     preveriUporabnika();
@@ -209,6 +216,11 @@ return (
       <p className="counter">
         🚗 Prijavljenih vozil: {vozila.length}
       </p>
+      <div className="stats">
+  <div>🔵 Vzmeti: {vozila.filter(v => v.kategorija === "Vzmeti").length}</div>
+  <div>🟠 Gewinde: {vozila.filter(v => v.kategorija === "Gewinde").length}</div>
+  <div>🟢 Airride: {vozila.filter(v => v.kategorija === "Airride").length}</div>
+</div>
     </div>
 
     {!user ? (
