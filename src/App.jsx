@@ -1,3 +1,4 @@
+const [iskanje, setIskanje] = useState("");
 import "./App.css";
 import logo from "./assets/devilscrew.png";
 import { useState, useEffect } from "react";
@@ -13,7 +14,7 @@ function App() {
 
   const [filterKategorija, setFilterKategorija] =
     useState("Vse");
-
+const [iskanje, setIskanje] = useState("");
   const [form, setForm] = useState({
     registrska: "",
     ime_priimek: "",
@@ -162,28 +163,46 @@ setForm({
 
     return () => subscription.unsubscribe();
   }, [sortiranje]);
-const prikazanaVozila =
-  filterKategorija === "Vse"
-    ? vozila
-    : vozila.filter(
-        (v) => v.kategorija === filterKategorija
-      );
-  return (
-<div className="container">
-  <div className="header">
-    <img
-      src={logo}
-      alt="Devils Crew"
-      className="logo"
-    />
+const prikazanaVozila = vozila.filter((v) => {
+  const ustrezaKategoriji =
+    filterKategorija === "Vse" ||
+    v.kategorija === filterKategorija;
 
-    <h1>
-      DEVILS CREW
-      <span> AUTO SHOW</span>
-    </h1>
-  </div>
+  const ustrezaIskanju =
+    v.ime_priimek
+      ?.toLowerCase()
+      .includes(iskanje.toLowerCase()) ||
+    v.vozilo
+      ?.toLowerCase()
+      .includes(iskanje.toLowerCase()) ||
+    v.registrska
+      ?.toLowerCase()
+      .includes(iskanje.toLowerCase());
 
-      {!user ? (
+  return ustrezaKategoriji && ustrezaIskanju;
+});
+return (
+  <div className="container">
+
+    <div className="header">
+      <img
+        src={logo}
+        alt="Devils Crew"
+        className="logo"
+      />
+
+      <h1>
+        DEVILS CREW
+        <span> AUTO SHOW</span>
+      </h1>
+
+      <p className="counter">
+        🚗 Prijavljenih vozil: {vozila.length}
+      </p>
+    </div>
+
+    {!user ? (
+        
         <>
           <h2>Prijava</h2>
 
@@ -267,15 +286,23 @@ const prikazanaVozila =
             />
 <br /><br />
 
-<select
-  name="kategorija"
-  value={form.kategorija}
-  onChange={handleChange}
->
-  <option value="Vzmeti">Vzmeti</option>
-  <option value="Gewinde">Gewinde</option>
-  <option value="Airride">Airride</option>
-</select>
+<div className="category-buttons">
+  <button onClick={() => setFilterKategorija("Vse")}>
+    Vse
+  </button>
+
+  <button onClick={() => setFilterKategorija("Vzmeti")}>
+    Vzmeti
+  </button>
+
+  <button onClick={() => setFilterKategorija("Gewinde")}>
+    Gewinde
+  </button>
+
+  <button onClick={() => setFilterKategorija("Airride")}>
+    Airride
+  </button>
+</div>
             <br /><br />
 
             <input
@@ -366,9 +393,21 @@ const prikazanaVozila =
   <option value="Gewinde">Gewinde</option>
   <option value="Airride">Airride</option>
 </select>
-          <br />
-          <br />
-<div className="mobile-cards">
+
+<br />
+<br />
+
+<input
+  type="text"
+  placeholder="🔍 Išči vozilo..."
+  value={iskanje}
+  onChange={(e) => setIskanje(e.target.value)}
+/>
+
+<br />
+<br />
+
+<div className="table-wrapper">
   {prikazanaVozila.map((v, index) => (
     <div
       key={v.id}
