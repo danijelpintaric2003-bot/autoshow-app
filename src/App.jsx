@@ -455,7 +455,7 @@ return (
 <br />
 <br />
 
-<div className="table-wrapper">
+<div className="mobile-cards">
   {prikazanaVozila.map((v, index) => (
     <div
       key={v.id}
@@ -502,7 +502,7 @@ return (
     </div>
   ))}
 </div>
-        <div className="table-wrapper">
+        <div className="mobile-cards">
   <table border="1" cellPadding="5">
     <thead>
       <tr>
