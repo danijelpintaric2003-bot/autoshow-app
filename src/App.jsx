@@ -4,7 +4,6 @@ import { supabase } from "./supabase";
 function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [user, setUser] = useState(null);
 
   const [form, setForm] = useState({
@@ -51,9 +50,12 @@ function App() {
     console.log("DATA:", data);
     console.log("ERROR:", error);
 
-    if (!error) {
-      setVozila(data || []);
+    if (error) {
+      console.log(error);
+      return;
     }
+
+    setVozila(data || []);
   };
 
   const shrani = async (e) => {
@@ -85,20 +87,42 @@ function App() {
     if (error) {
       alert("Napaka: " + error.message);
       console.log(error);
-    } else {
-      alert("Podatki uspešno shranjeni!");
-
-      setForm({
-        registrska: "",
-        ime_priimek: "",
-        vozilo: "",
-        visina_spredaj: "",
-        visina_sredina: "",
-        visina_zadaj: "",
-      });
-
-      await naloziVozila();
+      return;
     }
+
+    alert("Podatki uspešno shranjeni!");
+
+    setForm({
+      registrska: "",
+      ime_priimek: "",
+      vozilo: "",
+      visina_spredaj: "",
+      visina_sredina: "",
+      visina_zadaj: "",
+    });
+
+    await naloziVozila();
+  };
+
+  const izbrisiVozilo = async (id) => {
+    const potrdi = window.confirm(
+      "Ali res želiš izbrisati vozilo?"
+    );
+
+    if (!potrdi) return;
+
+    const { error } = await supabase
+      .from("vozila")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      alert(error.message);
+      console.log(error);
+      return;
+    }
+
+    await naloziVozila();
   };
 
   useEffect(() => {
@@ -118,15 +142,17 @@ function App() {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user ?? null);
+    } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setUser(session?.user ?? null);
 
-      if (session?.user) {
-        naloziVozila();
-      } else {
-        setVozila([]);
+        if (session?.user) {
+          naloziVozila();
+        } else {
+          setVozila([]);
+        }
       }
-    });
+    );
 
     return () => subscription.unsubscribe();
   }, []);
@@ -142,20 +168,26 @@ function App() {
           <input
             type="email"
             placeholder="Email"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+
           <br />
           <br />
 
           <input
             type="password"
             placeholder="Geslo"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+
           <br />
           <br />
 
-          <button onClick={prijava}>Prijava</button>
+          <button onClick={prijava}>
+            Prijava
+          </button>
         </>
       ) : (
         <>
@@ -163,7 +195,9 @@ function App() {
             Prijavljen: <b>{user.email}</b>
           </p>
 
-          <button onClick={odjava}>Odjava</button>
+          <button onClick={odjava}>
+            Odjava
+          </button>
 
           <hr />
 
@@ -174,6 +208,7 @@ function App() {
               value={form.ime_priimek}
               onChange={handleChange}
             />
+
             <br />
             <br />
 
@@ -183,6 +218,7 @@ function App() {
               value={form.vozilo}
               onChange={handleChange}
             />
+
             <br />
             <br />
 
@@ -192,6 +228,7 @@ function App() {
               value={form.registrska}
               onChange={handleChange}
             />
+
             <br />
             <br />
 
@@ -202,6 +239,7 @@ function App() {
               value={form.visina_spredaj}
               onChange={handleChange}
             />
+
             <br />
             <br />
 
@@ -212,6 +250,7 @@ function App() {
               value={form.visina_sredina}
               onChange={handleChange}
             />
+
             <br />
             <br />
 
@@ -222,6 +261,7 @@ function App() {
               value={form.visina_zadaj}
               onChange={handleChange}
             />
+
             <br />
             <br />
 
@@ -236,7 +276,9 @@ function App() {
               cm
             </p>
 
-            <button type="submit">Shrani</button>
+            <button type="submit">
+              Shrani
+            </button>
           </form>
 
           <h2>Vnesena vozila</h2>
@@ -251,6 +293,7 @@ function App() {
                 <th>Stranska</th>
                 <th>Zadaj</th>
                 <th>Povprečje</th>
+                <th>Akcija</th>
               </tr>
             </thead>
 
@@ -263,7 +306,21 @@ function App() {
                   <td>{v.visina_spredaj}</td>
                   <td>{v.visina_sredina}</td>
                   <td>{v.visina_zadaj}</td>
-                  <td>{Number(v.povprecna_visina).toFixed(2)}</td>
+                  <td>
+                    {Number(
+                      v.povprecna_visina
+                    ).toFixed(2)}
+                  </td>
+
+                  <td>
+                    <button
+                      onClick={() =>
+                        izbrisiVozilo(v.id)
+                      }
+                    >
+                      Izbriši
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
