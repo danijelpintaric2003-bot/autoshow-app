@@ -1,4 +1,3 @@
-const [iskanje, setIskanje] = useState("");
 import "./App.css";
 import logo from "./assets/devilscrew.png";
 import { useState, useEffect } from "react";
@@ -14,7 +13,9 @@ function App() {
 
   const [filterKategorija, setFilterKategorija] =
     useState("Vse");
-const [iskanje, setIskanje] = useState("");
+
+  const [iskanje, setIskanje] = useState("");
+
   const [form, setForm] = useState({
     registrska: "",
     ime_priimek: "",
