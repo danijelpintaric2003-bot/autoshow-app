@@ -172,10 +172,12 @@ setForm({
 
     return () => subscription.unsubscribe();
   }, [sortiranje]);
-const prikazanaVozila = vozila.filter((v) => {
-  const ustrezaKategoriji =
-    filterKategorija === "Vse" ||
-    v.kategorija === filterKategorija;
+const prikazanaVozila =
+  filterKategorija === "Vse"
+    ? vozila
+    : vozila.filter(
+        (v) => v.kategorija === filterKategorija
+      );
 
   const ustrezaIskanju =
     v.ime_priimek
@@ -189,7 +191,7 @@ const prikazanaVozila = vozila.filter((v) => {
       .includes(iskanje.toLowerCase());
 
   return ustrezaKategoriji && ustrezaIskanju;
-});
+};
 return (
   <div className="container">
 
@@ -411,6 +413,7 @@ return (
     setFilterKategorija(e.target.value)
   }
 >
+  <option value="Vse">Vse kategorije</option>
   <option value="Vzmeti">Vzmeti</option>
   <option value="Gewinde">Gewinde</option>
   <option value="Airride">Airride</option>

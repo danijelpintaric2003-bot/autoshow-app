@@ -1,74 +1,90 @@
 body {
   margin: 0;
-  background: #000;
-  color: white;
   font-family: Arial, sans-serif;
+  color: white;
+
+  background:
+    linear-gradient(rgba(0,0,0,.92), rgba(0,0,0,.92)),
+    url('/devilscrew.png');
+
+  background-size: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .container {
-  min-height: 100vh;
   max-width: 1400px;
   margin: auto;
   padding: 20px;
 }
 
+/* HEADER */
+
 .header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .logo {
   width: 220px;
-  filter: drop-shadow(0 0 15px red);
+  filter: drop-shadow(0 0 20px red);
 }
 
 .header h1 {
   color: #ff0000;
   font-size: 42px;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  margin: 10px 0;
 }
 
 .header span {
   color: white;
 }
 
+.counter {
+  font-size: 22px;
+  color: #ff0000;
+  font-weight: bold;
+}
+
+/* INPUTI */
+
 input,
 select {
-  width: 300px;
-  padding: 12px;
-  border-radius: 8px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
   border: 1px solid #333;
   background: #111;
   color: white;
+  box-sizing: border-box;
 }
+
+/* GUMBI */
 
 button {
   background: #cc0000;
   color: white;
   border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
+  border-radius: 10px;
+  padding: 12px 15px;
   font-weight: bold;
+  cursor: pointer;
+  transition: .25s;
 }
 
 button:hover {
   background: #ff0000;
+  transform: translateY(-2px);
 }
+
+/* FORM */
 
 form {
-  background: #111;
+  background: rgba(17,17,17,.95);
   padding: 20px;
   border-radius: 15px;
-  margin-bottom: 30px;
-}
-
-h2 {
-  color: white;
-}
-
-hr {
+  margin-bottom: 25px;
   border: 1px solid #222;
 }
 
@@ -89,12 +105,42 @@ hr {
   box-shadow: 0 0 15px red;
 }
 
+/* KATEGORIJE */
+
+.kategorije {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.kategorije button {
+  flex: 1;
+  background: #222;
+  border: 2px solid #444;
+}
+
+.vzmeti-active {
+  background: #2196f3 !important;
+  border-color: #2196f3 !important;
+  box-shadow: 0 0 15px #2196f3;
+}
+
+.gewinde-active {
+  background: #ff9800 !important;
+  border-color: #ff9800 !important;
+  box-shadow: 0 0 15px #ff9800;
+}
+
+.airride-active {
+  background: #4caf50 !important;
+  border-color: #4caf50 !important;
+  box-shadow: 0 0 15px #4caf50;
+}
+
 /* TABELA */
 
 .table-wrapper {
   overflow-x: auto;
-  width: 100%;
-  -webkit-overflow-scrolling: touch;
 }
 
 table {
@@ -105,14 +151,13 @@ table {
 
 th {
   background: #cc0000;
-  color: white;
-  padding: 10px;
+  padding: 12px;
 }
 
 td {
   padding: 10px;
-  border: 1px solid #333;
   text-align: center;
+  border: 1px solid #333;
 }
 
 tr:nth-child(even) {
@@ -122,57 +167,22 @@ tr:nth-child(even) {
 /* TOP 3 */
 
 .gold {
-  background: rgba(255, 215, 0, 0.25) !important;
+  background: rgba(255,215,0,.25) !important;
   border-left: 5px solid gold;
 }
 
 .silver {
-  background: rgba(192, 192, 192, 0.25) !important;
+  background: rgba(192,192,192,.25) !important;
   border-left: 5px solid silver;
 }
 
 .bronze {
-  background: rgba(205, 127, 50, 0.25) !important;
+  background: rgba(205,127,50,.25) !important;
   border-left: 5px solid #cd7f32;
 }
 
-/* MOBILNI TELEFONI */
+/* KARTICE ZA MOBITEL */
 
-@media (max-width: 768px) {
-  .container {
-    padding: 10px;
-  }
-
-  .logo {
-    width: 140px;
-  }
-
-  .header h1 {
-    font-size: 24px;
-  }
-
-  input,
-  select,
-  button {
-    width: 100%;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-  }
-
-  form {
-    padding: 15px;
-  }
-
-  table {
-    min-width: 900px;
-    font-size: 12px;
-  }
-
-  th,
-  td {
-    padding: 6px;
-  }
-}
 .mobile-cards {
   display: none;
 }
@@ -186,76 +196,58 @@ tr:nth-child(even) {
 }
 
 .vozilo-card h3 {
-  margin-top: 0;
   color: #ff0000;
+  margin-top: 0;
 }
 
+.vozilo-card p {
+  margin: 6px 0;
+}
+
+/* MOBILE */
+
 @media (max-width: 768px) {
-  .mobile-cards {
-    display: block;
+
+  .container {
+    padding: 10px;
+  }
+
+  .logo {
+    width: 140px;
+  }
+
+  .header h1 {
+    font-size: 28px;
+  }
+
+  .counter {
+    font-size: 18px;
+  }
+
+  .tabs {
+    flex-direction: row;
   }
 
   .table-wrapper {
     display: none;
   }
-}
-body {
-  background:
-    linear-gradient(rgba(0,0,0,.9), rgba(0,0,0,.9)),
-    url('/devilscrew.png');
-  background-size: 500px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-.counter {
-  text-align: center;
-  font-size: 22px;
-  font-weight: bold;
-  color: #ff0000;
-  margin-bottom: 20px;
-}
-.category-buttons {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
 
-.category-buttons button {
-  flex: 1;
-}
-.kategorije {
-  display: flex;
-  gap: 10px;
-  margin: 15px 0;
-}
+  .mobile-cards {
+    display: block;
+  }
 
-.kategorije button {
-  flex: 1;
-  background: #222;
-  border: 2px solid #444;
-  color: white;
-  transition: all 0.3s ease;
-}
+  .kategorije {
+    flex-direction: row;
+  }
 
-.active-category {
-  background: #ff0000 !important;
-  border-color: #ff4444 !important;
-  box-shadow: 0 0 15px red;
-  transform: scale(1.05);
-}
-.vzmeti-active {
-  background: #2196f3 !important;
-  box-shadow: 0 0 15px #2196f3;
-}
+  .kategorije button {
+    padding: 10px;
+    font-size: 14px;
+  }
 
-.gewinde-active {
-  background: #ff9800 !important;
-  box-shadow: 0 0 15px #ff9800;
-}
-
-.airride-active {
-  background: #4caf50 !important;
-  box-shadow: 0 0 15px #4caf50;
+  input,
+  select,
+  button {
+    width: 100%;
+  }
 }
