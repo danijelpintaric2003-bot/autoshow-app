@@ -6,6 +6,8 @@ function App() {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
 
+  const [sortiranje, setSortiranje] = useState("asc");
+
   const [form, setForm] = useState({
     registrska: "",
     ime_priimek: "",
@@ -25,8 +27,6 @@ function App() {
 
     if (error) {
       alert(error.message);
-    } else {
-      alert("Prijava uspešna!");
     }
   };
 
@@ -45,10 +45,9 @@ function App() {
     const { data, error } = await supabase
       .from("vozila")
       .select("*")
-      .order("id", { ascending: false });
-
-    console.log("DATA:", data);
-    console.log("ERROR:", error);
+      .order("povprecna_visina", {
+        ascending: sortiranje === "asc",
+      });
 
     if (error) {
       console.log(error);
@@ -85,8 +84,7 @@ function App() {
     ]);
 
     if (error) {
-      alert("Napaka: " + error.message);
-      console.log(error);
+      alert(error.message);
       return;
     }
 
@@ -118,7 +116,6 @@ function App() {
 
     if (error) {
       alert(error.message);
-      console.log(error);
       return;
     }
 
@@ -155,11 +152,11 @@ function App() {
     );
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [sortiranje]);
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>Auto Show</h1>
+      <h1>🏁 Auto Show</h1>
 
       {!user ? (
         <>
@@ -209,8 +206,7 @@ function App() {
               onChange={handleChange}
             />
 
-            <br />
-            <br />
+            <br /><br />
 
             <input
               name="vozilo"
@@ -219,8 +215,7 @@ function App() {
               onChange={handleChange}
             />
 
-            <br />
-            <br />
+            <br /><br />
 
             <input
               name="registrska"
@@ -229,8 +224,7 @@ function App() {
               onChange={handleChange}
             />
 
-            <br />
-            <br />
+            <br /><br />
 
             <input
               type="number"
@@ -240,8 +234,7 @@ function App() {
               onChange={handleChange}
             />
 
-            <br />
-            <br />
+            <br /><br />
 
             <input
               type="number"
@@ -251,8 +244,7 @@ function App() {
               onChange={handleChange}
             />
 
-            <br />
-            <br />
+            <br /><br />
 
             <input
               type="number"
@@ -262,8 +254,7 @@ function App() {
               onChange={handleChange}
             />
 
-            <br />
-            <br />
+            <br /><br />
 
             <p>
               Povprečna višina:{" "}
@@ -281,11 +272,30 @@ function App() {
             </button>
           </form>
 
-          <h2>Vnesena vozila</h2>
+          <hr />
+
+          <h2>🏆 Lestvica vozil</h2>
+
+          <button
+            onClick={() => setSortiranje("asc")}
+            style={{ marginRight: "10px" }}
+          >
+            Najnižja višina
+          </button>
+
+          <button
+            onClick={() => setSortiranje("desc")}
+          >
+            Najvišja višina
+          </button>
+
+          <br />
+          <br />
 
           <table border="1" cellPadding="5">
             <thead>
               <tr>
+                <th>Mesto</th>
                 <th>Ime in priimek</th>
                 <th>Vozilo</th>
                 <th>Registrska</th>
@@ -298,14 +308,25 @@ function App() {
             </thead>
 
             <tbody>
-              {vozila.map((v) => (
+              {vozila.map((v, index) => (
                 <tr key={v.id}>
+                  <td>
+                    {index === 0
+                      ? "🥇"
+                      : index === 1
+                      ? "🥈"
+                      : index === 2
+                      ? "🥉"
+                      : index + 1}
+                  </td>
+
                   <td>{v.ime_priimek}</td>
                   <td>{v.vozilo}</td>
                   <td>{v.registrska}</td>
                   <td>{v.visina_spredaj}</td>
                   <td>{v.visina_sredina}</td>
                   <td>{v.visina_zadaj}</td>
+
                   <td>
                     {Number(
                       v.povprecna_visina
