@@ -368,7 +368,53 @@ const prikazanaVozila =
 </select>
           <br />
           <br />
+<div className="mobile-cards">
+  {prikazanaVozila.map((v, index) => (
+    <div
+      key={v.id}
+      className={`vozilo-card ${
+        index === 0
+          ? "gold"
+          : index === 1
+          ? "silver"
+          : index === 2
+          ? "bronze"
+          : ""
+      }`}
+    >
+      <h3>
+        {index === 0
+          ? "🥇 1. MESTO"
+          : index === 1
+          ? "🥈 2. MESTO"
+          : index === 2
+          ? "🥉 3. MESTO"
+          : `#${index + 1}`}
+      </h3>
 
+      <p><b>👤 Ime:</b> {v.ime_priimek}</p>
+      <p><b>🚗 Vozilo:</b> {v.vozilo}</p>
+      <p><b>⚙️ Kategorija:</b> {v.kategorija}</p>
+      <p><b>🔢 Registrska:</b> {v.registrska}</p>
+
+      <hr />
+
+      <p>📏 Spredaj: {v.visina_spredaj} cm</p>
+      <p>📏 Sredina: {v.visina_sredina} cm</p>
+      <p>📏 Zadaj: {v.visina_zadaj} cm</p>
+
+      <p>
+        ⭐ <b>{Number(v.povprecna_visina).toFixed(2)} cm</b>
+      </p>
+
+      <button
+        onClick={() => izbrisiVozilo(v.id)}
+      >
+        Izbriši
+      </button>
+    </div>
+  ))}
+</div>
         <div className="table-wrapper">
   <table border="1" cellPadding="5">
     <thead>

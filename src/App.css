@@ -173,3 +173,29 @@ tr:nth-child(even) {
     padding: 6px;
   }
 }
+.mobile-cards {
+  display: none;
+}
+
+.vozilo-card {
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.vozilo-card h3 {
+  margin-top: 0;
+  color: #ff0000;
+}
+
+@media (max-width: 768px) {
+  .mobile-cards {
+    display: block;
+  }
+
+  .table-wrapper {
+    display: none;
+  }
+}
