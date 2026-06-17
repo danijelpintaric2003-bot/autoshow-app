@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "./supabase";
 
 function App() {
-  const [form, setForm] = useState({
-    registrska: "",
-    ime_priimek: "",
-    vozilo: "",
-    visina_spredaj: "",
-    visina_sredina: "",
-    visina_zadaj: "",
-  });
+const [form, setForm] = useState({
+  registrska: "",
+  ime_priimek: "",
+  vozilo: "",
+  visina_spredaj: "",
+  visina_sredina: "",
+  visina_zadaj: "",
+});
+
+const [vozila, setVozila] = useState([]);
+console.log(vozila);
 
   const handleChange = (e) => {
     setForm({
@@ -38,13 +41,27 @@ function App() {
       },
     ]);
 
-    if (error) {
-      alert("Napaka: " + error.message);
-    } else {
-      alert("Podatki uspešno shranjeni!");
-    }
+if (error) {
+  alert("Napaka: " + error.message);
+} else {
+  alert("Podatki uspešno shranjeni!");
+  await naloziVozila();
+}
   };
+const naloziVozila = async () => {
+  const { data, error } = await supabase
+    .from("vozila")
+    .select("*")
+    .order("id", { ascending: false });
 
+  if (!error) {
+    setVozila(data);
+  }
+};
+
+useEffect(() => {
+  naloziVozila();
+}, []);
   return (
     <div style={{ padding: "20px" }}>
       <h1>Auto Show</h1>
@@ -110,6 +127,35 @@ function App() {
   <button type="submit">Shrani</button>
 
 </form>
+<h2>Vnesena vozila</h2>
+
+<table border="1" cellPadding="5">
+  <thead>
+    <tr>
+      <th>Ime in priimek</th>
+      <th>Vozilo</th>
+      <th>Registrska</th>
+      <th>Spredaj</th>
+      <th>Stranska</th>
+      <th>Zadaj</th>
+      <th>Povprečje</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {vozila.map((v) => (
+      <tr key={v.id}>
+        <td>{v.ime_priimek}</td>
+        <td>{v.vozilo}</td>
+        <td>{v.registrska}</td>
+        <td>{v.visina_spredaj}</td>
+        <td>{v.visina_sredina}</td>
+        <td>{v.visina_zadaj}</td>
+        <td>{v.povprecna_visina}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
     </div>
   );
 }
