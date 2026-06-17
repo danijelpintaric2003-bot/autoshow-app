@@ -299,7 +299,11 @@ return (
 <div className="kategorije">
   <button
     type="button"
-    className={form.kategorija === "Vzmeti" ? "active-category" : ""}
+    className={
+      form.kategorija === "Vzmeti"
+        ? "vzmeti-active"
+        : ""
+    }
     onClick={() =>
       setForm({ ...form, kategorija: "Vzmeti" })
     }
@@ -309,7 +313,11 @@ return (
 
   <button
     type="button"
-    className={form.kategorija === "Gewinde" ? "active-category" : ""}
+    className={
+      form.kategorija === "Gewinde"
+        ? "gewinde-active"
+        : ""
+    }
     onClick={() =>
       setForm({ ...form, kategorija: "Gewinde" })
     }
@@ -319,7 +327,11 @@ return (
 
   <button
     type="button"
-    className={form.kategorija === "Airride" ? "active-category" : ""}
+    className={
+      form.kategorija === "Airride"
+        ? "airride-active"
+        : ""
+    }
     onClick={() =>
       setForm({ ...form, kategorija: "Airride" })
     }

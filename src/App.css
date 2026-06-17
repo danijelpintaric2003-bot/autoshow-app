@@ -107,34 +107,29 @@ form {
 
 /* KATEGORIJE */
 
-.kategorije {
-  display: flex;
-  gap: 10px;
-  margin: 15px 0;
-}
-
 .kategorije button {
   flex: 1;
+  padding: 12px;
+  border-radius: 10px;
   background: #222;
   border: 2px solid #444;
+  color: white;
+  font-weight: bold;
 }
 
 .vzmeti-active {
-  background: #2196f3 !important;
-  border-color: #2196f3 !important;
-  box-shadow: 0 0 15px #2196f3;
+  background: linear-gradient(45deg,#1976d2,#42a5f5) !important;
+  border-color: #42a5f5 !important;
 }
 
 .gewinde-active {
-  background: #ff9800 !important;
+  background: linear-gradient(45deg,#e65100,#ff9800) !important;
   border-color: #ff9800 !important;
-  box-shadow: 0 0 15px #ff9800;
 }
 
 .airride-active {
-  background: #4caf50 !important;
+  background: linear-gradient(45deg,#2e7d32,#4caf50) !important;
   border-color: #4caf50 !important;
-  box-shadow: 0 0 15px #4caf50;
 }
 
 /* TABELA */
