@@ -1,16 +1,23 @@
+/* ===== GLOBAL ===== */
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   color: white;
+  background: #050505;
+  overflow-x: hidden;
+}
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
   background:
-    linear-gradient(rgba(0,0,0,.92), rgba(0,0,0,.92)),
-    url('/devilscrew.png');
-
-  background-size: 500px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+    radial-gradient(circle at top,
+    rgba(255, 0, 0, 0.18),
+    transparent 45%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .container {
@@ -19,22 +26,25 @@ body {
   padding: 20px;
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 
 .header {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
 }
 
 .logo {
   width: 220px;
-  filter: drop-shadow(0 0 20px red);
+  filter:
+    drop-shadow(0 0 10px red)
+    drop-shadow(0 0 25px red);
 }
 
 .header h1 {
-  color: #ff0000;
-  font-size: 42px;
+  font-size: 46px;
   margin: 10px 0;
+  color: #ff0000;
+  letter-spacing: 2px;
 }
 
 .header span {
@@ -43,52 +53,82 @@ body {
 
 .counter {
   font-size: 22px;
-  color: #ff0000;
   font-weight: bold;
+  color: #ff4444;
 }
 
-/* INPUTI */
+/* ===== STATISTIKA ===== */
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+.stats div {
+  background: rgba(255,255,255,.05);
+  border: 1px solid #222;
+  padding: 10px 15px;
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+}
+
+/* ===== FORM ===== */
+
+form {
+  background: rgba(15,15,15,.9);
+  border: 1px solid #222;
+  border-radius: 18px;
+  padding: 25px;
+  margin-bottom: 25px;
+  backdrop-filter: blur(10px);
+}
 
 input,
 select {
   width: 100%;
   padding: 14px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid #333;
-  background: #111;
+  background: #101010;
   color: white;
   box-sizing: border-box;
+  transition: .2s;
 }
 
-/* GUMBI */
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #ff0000;
+  box-shadow: 0 0 15px rgba(255,0,0,.3);
+}
+
+/* ===== BUTTONS ===== */
 
 button {
-  background: #cc0000;
+  background: linear-gradient(
+    45deg,
+    #b80000,
+    #ff0000
+  );
+
   color: white;
   border: none;
-  border-radius: 10px;
-  padding: 12px 15px;
+  border-radius: 12px;
+  padding: 12px 18px;
   font-weight: bold;
   cursor: pointer;
   transition: .25s;
 }
 
 button:hover {
-  background: #ff0000;
   transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(255,0,0,.5);
 }
 
-/* FORM */
-
-form {
-  background: rgba(17,17,17,.95);
-  padding: 20px;
-  border-radius: 15px;
-  margin-bottom: 25px;
-  border: 1px solid #222;
-}
-
-/* TABS */
+/* ===== TABS ===== */
 
 .tabs {
   display: flex;
@@ -101,38 +141,104 @@ form {
 }
 
 .active-tab {
-  background: #ff0000;
-  box-shadow: 0 0 15px red;
+  box-shadow: 0 0 20px red;
 }
 
-/* KATEGORIJE */
+/* ===== KATEGORIJE ===== */
+
+.kategorije {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
 
 .kategorije button {
   flex: 1;
-  padding: 12px;
-  border-radius: 10px;
-  background: #222;
-  border: 2px solid #444;
-  color: white;
-  font-weight: bold;
+  background: #1a1a1a;
+  border: 2px solid #333;
 }
 
 .vzmeti-active {
-  background: linear-gradient(45deg,#1976d2,#42a5f5) !important;
-  border-color: #42a5f5 !important;
+  background: linear-gradient(
+    45deg,
+    #1565c0,
+    #42a5f5
+  ) !important;
+
+  box-shadow: 0 0 15px #42a5f5;
 }
 
 .gewinde-active {
-  background: linear-gradient(45deg,#e65100,#ff9800) !important;
-  border-color: #ff9800 !important;
+  background: linear-gradient(
+    45deg,
+    #e65100,
+    #ff9800
+  ) !important;
+
+  box-shadow: 0 0 15px #ff9800;
 }
 
 .airride-active {
-  background: linear-gradient(45deg,#2e7d32,#4caf50) !important;
-  border-color: #4caf50 !important;
+  background: linear-gradient(
+    45deg,
+    #2e7d32,
+    #4caf50
+  ) !important;
+
+  box-shadow: 0 0 15px #4caf50;
 }
 
-/* TABELA */
+/* ===== TOP 3 ===== */
+
+.gold {
+  background: rgba(255,215,0,.15) !important;
+  box-shadow: inset 5px 0 gold;
+}
+
+.silver {
+  background: rgba(192,192,192,.15) !important;
+  box-shadow: inset 5px 0 silver;
+}
+
+.bronze {
+  background: rgba(205,127,50,.15) !important;
+  box-shadow: inset 5px 0 #cd7f32;
+}
+
+/* ===== TOP 3 KARTICE ===== */
+
+.top3 {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.top-card {
+  flex: 1;
+  min-width: 220px;
+  padding: 20px;
+  border-radius: 18px;
+  text-align: center;
+  border: 1px solid #222;
+}
+
+.gold-card {
+  background: rgba(255,215,0,.12);
+  box-shadow: 0 0 20px gold;
+}
+
+.silver-card {
+  background: rgba(192,192,192,.12);
+  box-shadow: 0 0 20px silver;
+}
+
+.bronze-card {
+  background: rgba(205,127,50,.12);
+  box-shadow: 0 0 20px #cd7f32;
+}
+
+/* ===== TABELA ===== */
 
 .table-wrapper {
   overflow-x: auto;
@@ -141,70 +247,63 @@ form {
 table {
   width: 100%;
   border-collapse: collapse;
-  background: #111;
+  background: rgba(15,15,15,.95);
+  border-radius: 15px;
+  overflow: hidden;
 }
 
 th {
-  background: #cc0000;
-  padding: 12px;
+  background: #c40000;
+  padding: 14px;
 }
 
 td {
-  padding: 10px;
+  padding: 12px;
   text-align: center;
-  border: 1px solid #333;
+  border-bottom: 1px solid #222;
 }
 
-tr:nth-child(even) {
-  background: #181818;
+tr:hover {
+  background: rgba(255,255,255,.05);
 }
 
-/* TOP 3 */
-
-.gold {
-  background: rgba(255,215,0,.25) !important;
-  border-left: 5px solid gold;
-}
-
-.silver {
-  background: rgba(192,192,192,.25) !important;
-  border-left: 5px solid silver;
-}
-
-.bronze {
-  background: rgba(205,127,50,.25) !important;
-  border-left: 5px solid #cd7f32;
-}
-
-/* KARTICE ZA MOBITEL */
+/* ===== MOBILE CARDS ===== */
 
 .mobile-cards {
   display: none;
 }
 
 .vozilo-card {
-  background: #111;
-  border: 1px solid #333;
-  border-radius: 15px;
+  background: rgba(15,15,15,.95);
+  border-radius: 18px;
   padding: 15px;
   margin-bottom: 15px;
+  border: 1px solid #222;
 }
 
 .vozilo-card h3 {
-  color: #ff0000;
+  color: #ff3333;
   margin-top: 0;
 }
 
-.vozilo-card p {
-  margin: 6px 0;
+.vzmeti-card {
+  border-left: 5px solid #2196f3;
 }
 
-/* MOBILE */
+.gewinde-card {
+  border-left: 5px solid #ff9800;
+}
+
+.airride-card {
+  border-left: 5px solid #4caf50;
+}
+
+/* ===== MOBILE ===== */
 
 @media (max-width: 768px) {
 
   .container {
-    padding: 10px;
+    padding: 12px;
   }
 
   .logo {
@@ -219,10 +318,6 @@ tr:nth-child(even) {
     font-size: 18px;
   }
 
-  .tabs {
-    flex-direction: row;
-  }
-
   .table-wrapper {
     display: none;
   }
@@ -231,13 +326,15 @@ tr:nth-child(even) {
     display: block;
   }
 
+  .tabs,
   .kategorije {
-    flex-direction: row;
+    gap: 8px;
   }
 
+  .tabs button,
   .kategorije button {
+    font-size: 13px;
     padding: 10px;
-    font-size: 14px;
   }
 
   input,
@@ -245,24 +342,8 @@ tr:nth-child(even) {
   button {
     width: 100%;
   }
-}
 
-.stats {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 20px;
-  font-weight: bold;
-  flex-wrap: wrap;
-}
-.vzmeti-card {
-  border-left: 5px solid #2196f3;
-}
-
-.gewinde-card {
-  border-left: 5px solid #ff9800;
-}
-
-.airride-card {
-  border-left: 5px solid #4caf50;
+  .top3 {
+    flex-direction: column;
+  }
 }
