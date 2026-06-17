@@ -8,12 +8,13 @@ function App() {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
 
-  const [sortiranje, setSortiranje] = useState("asc");
+ const [filterKategorija, setFilterKategorija] = useState("Vse");
 
   const [form, setForm] = useState({
     registrska: "",
     ime_priimek: "",
     vozilo: "",
+    kategorija: "Airride",
     visina_spredaj: "",
     visina_sredina: "",
     visina_zadaj: "",
@@ -74,15 +75,16 @@ function App() {
       3;
 
     const { error } = await supabase.from("vozila").insert([
-      {
-        registrska: form.registrska,
-        ime_priimek: form.ime_priimek,
-        vozilo: form.vozilo,
-        visina_spredaj: form.visina_spredaj,
-        visina_sredina: form.visina_sredina,
-        visina_zadaj: form.visina_zadaj,
-        povprecna_visina,
-      },
+{
+  registrska: form.registrska,
+  ime_priimek: form.ime_priimek,
+  vozilo: form.vozilo,
+  kategorija: form.kategorija,
+  visina_spredaj: form.visina_spredaj,
+  visina_sredina: form.visina_sredina,
+  visina_zadaj: form.visina_zadaj,
+  povprecna_visina,
+},
     ]);
 
     if (error) {
@@ -92,14 +94,15 @@ function App() {
 
     alert("Podatki uspešno shranjeni!");
 
-    setForm({
-      registrska: "",
-      ime_priimek: "",
-      vozilo: "",
-      visina_spredaj: "",
-      visina_sredina: "",
-      visina_zadaj: "",
-    });
+setForm({
+  registrska: "",
+  ime_priimek: "",
+  vozilo: "",
+  kategorija: "Airride",
+  visina_spredaj: "",
+  visina_sredina: "",
+  visina_zadaj: "",
+});
 
     await naloziVozila();
   };
@@ -155,7 +158,12 @@ function App() {
 
     return () => subscription.unsubscribe();
   }, [sortiranje]);
-
+const prikazanaVozila =
+  filterKategorija === "Vse"
+    ? vozila
+    : vozila.filter(
+        (v) => v.kategorija === filterKategorija
+      );
   return (
 <div className="container">
   <div className="header">
@@ -227,7 +235,17 @@ function App() {
               value={form.vozilo}
               onChange={handleChange}
             />
+<br /><br />
 
+<select
+  name="kategorija"
+  value={form.kategorija}
+  onChange={handleChange}
+>
+  <option value="Airride">Airride</option>
+  <option value="Gewinde">Gewinde</option>
+  <option value="Vzmeti">Vzmeti</option>
+</select>
             <br /><br />
 
             <input
@@ -301,7 +319,19 @@ function App() {
           >
             Najvišja višina
           </button>
+<br /><br />
 
+<select
+  value={filterKategorija}
+  onChange={(e) =>
+    setFilterKategorija(e.target.value)
+  }
+>
+  <option value="Vse">Vse kategorije</option>
+  <option value="Airride">Airride</option>
+  <option value="Gewinde">Gewinde</option>
+  <option value="Vzmeti">Vzmeti</option>
+</select>
           <br />
           <br />
 
@@ -311,6 +341,7 @@ function App() {
                 <th>Mesto</th>
                 <th>Ime in priimek</th>
                 <th>Vozilo</th>
+                <th>Kategorija</th>
                 <th>Registrska</th>
                 <th>Spredaj</th>
                 <th>Stranska</th>
@@ -321,7 +352,7 @@ function App() {
             </thead>
 
 <tbody>
-  {vozila.map((v, index) => (
+  {prikazanaVozila.map((v, index) => (
     <tr
       key={v.id}
       className={
@@ -346,6 +377,7 @@ function App() {
 
       <td>{v.ime_priimek}</td>
       <td>{v.vozilo}</td>
+      <td>{v.kategorija}</td>
       <td>{v.registrska}</td>
       <td>{v.visina_spredaj}</td>
       <td>{v.visina_sredina}</td>
