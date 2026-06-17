@@ -320,46 +320,51 @@ function App() {
               </tr>
             </thead>
 
-            <tbody>
-              {vozila.map((v, index) => (
-<tr
-  key={v.id}
-  className={
-    index === 0
-      ? "gold"
-      : index === 1
-      ? "silver"
-      : index === 2
-      ? "bronze"
-      : ""
-  }
->
+<tbody>
+  {vozila.map((v, index) => (
+    <tr
+      key={v.id}
+      className={
+        index === 0
+          ? "gold"
+          : index === 1
+          ? "silver"
+          : index === 2
+          ? "bronze"
+          : ""
+      }
+    >
+      <td>
+        {index === 0
+          ? "🥇"
+          : index === 1
+          ? "🥈"
+          : index === 2
+          ? "🥉"
+          : index + 1}
+      </td>
 
-                  <td>{v.ime_priimek}</td>
-                  <td>{v.vozilo}</td>
-                  <td>{v.registrska}</td>
-                  <td>{v.visina_spredaj}</td>
-                  <td>{v.visina_sredina}</td>
-                  <td>{v.visina_zadaj}</td>
+      <td>{v.ime_priimek}</td>
+      <td>{v.vozilo}</td>
+      <td>{v.registrska}</td>
+      <td>{v.visina_spredaj}</td>
+      <td>{v.visina_sredina}</td>
+      <td>{v.visina_zadaj}</td>
 
-                  <td>
-                    {Number(
-                      v.povprecna_visina
-                    ).toFixed(2)}
-                  </td>
+      <td>
+        {Number(v.povprecna_visina).toFixed(2)}
+      </td>
 
-                  <td>
-                    <button
-                      onClick={() =>
-                        izbrisiVozilo(v.id)
-                      }
-                    >
-                      Izbriši
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+      <td>
+        <button
+          onClick={() => izbrisiVozilo(v.id)}
+        >
+          Izbriši
+        </button>
+      </td>
+    </tr>
+  ))}
+</tbody>
           </table>
         </>
       )}
