@@ -1,5 +1,19 @@
 import { useState, useEffect } from "react";
 import { supabase } from "./supabase";
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+const prijava = async () => {
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    alert(error.message);
+  } else {
+    alert("Prijava uspešna!");
+  }
+};
 
 function App() {
 const [form, setForm] = useState({
@@ -62,11 +76,33 @@ const naloziVozila = async () => {
 useEffect(() => {
   naloziVozila();
 }, []);
-  return (
-    <div style={{ padding: "20px" }}>
-      <h1>Auto Show</h1>
+return (
+  <div style={{ padding: "20px" }}>
+    <h1>Auto Show</h1>
 
-<form onSubmit={shrani}>
+    <h2>Prijava</h2>
+
+    <input
+      type="email"
+      placeholder="Email"
+      onChange={(e) => setEmail(e.target.value)}
+    />
+    <br /><br />
+
+    <input
+      type="password"
+      placeholder="Geslo"
+      onChange={(e) => setPassword(e.target.value)}
+    />
+    <br /><br />
+
+    <button onClick={prijava}>
+      Prijava
+    </button>
+
+    <hr />
+
+    <form onSubmit={shrani}>
 
   <input
     name="ime_priimek"
