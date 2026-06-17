@@ -17,7 +17,7 @@ function App() {
     registrska: "",
     ime_priimek: "",
     vozilo: "",
-    kategorija: "Airride",
+    kategorija: "Vzmeti",
     visina_spredaj: "",
     visina_sredina: "",
     visina_zadaj: "",
@@ -101,7 +101,7 @@ setForm({
   registrska: "",
   ime_priimek: "",
   vozilo: "",
-  kategorija: "Airride",
+  kategorija: "Vzmeti",
   visina_spredaj: "",
   visina_sredina: "",
   visina_zadaj: "",
@@ -245,9 +245,9 @@ const prikazanaVozila =
   value={form.kategorija}
   onChange={handleChange}
 >
-  <option value="Airride">Airride</option>
+  <option value="Vzmeti">Airride</option>
   <option value="Gewinde">Gewinde</option>
-  <option value="Vzmeti">Vzmeti</option>
+  <option value="Airride">Vzmeti</option>
 </select>
             <br /><br />
 
@@ -338,21 +338,22 @@ const prikazanaVozila =
           <br />
           <br />
 
-          <table border="1" cellPadding="5">
-            <thead>
-              <tr>
-                <th>Mesto</th>
-                <th>Ime in priimek</th>
-                <th>Vozilo</th>
-                <th>Kategorija</th>
-                <th>Registrska</th>
-                <th>Spredaj</th>
-                <th>Stranska</th>
-                <th>Zadaj</th>
-                <th>Povprečje</th>
-                <th>Akcija</th>
-              </tr>
-            </thead>
+        <div className="table-wrapper">
+  <table border="1" cellPadding="5">
+    <thead>
+      <tr>
+        <th>Mesto</th>
+        <th>Ime in priimek</th>
+        <th>Vozilo</th>
+        <th>Kategorija</th>
+        <th>Registrska</th>
+        <th>Spredaj</th>
+        <th>Stranska</th>
+        <th>Zadaj</th>
+        <th>Povprečje</th>
+        <th>Akcija</th>
+      </tr>
+    </thead>
 
 <tbody>
   {prikazanaVozila.map((v, index) => (
@@ -399,13 +400,13 @@ const prikazanaVozila =
       </td>
     </tr>
   ))}
-</tbody>
-          </table>
+ </tbody>
+            </table>
+          </div>
         </>
       )}
     </div>
   );
-  
 }
 
 export default App;

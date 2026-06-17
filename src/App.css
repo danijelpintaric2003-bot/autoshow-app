@@ -107,3 +107,76 @@ hr {
   background: rgba(205, 127, 50, 0.25) !important;
   border-left: 5px solid #cd7f32;
 }
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .logo {
+    width: 150px;
+  }
+
+  .header h1 {
+    font-size: 28px;
+  }
+
+  input,
+  select,
+  button {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+
+  form {
+    padding: 15px;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th,
+  td {
+    padding: 6px;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    width: 100%;
+  }
+}
+.table-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .logo {
+    width: 150px;
+  }
+
+  .header h1 {
+    font-size: 28px;
+  }
+
+  input,
+  select,
+  button {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  table {
+    min-width: 900px;
+    font-size: 12px;
+  }
+
+  th,
+  td {
+    padding: 6px;
+  }
+}
