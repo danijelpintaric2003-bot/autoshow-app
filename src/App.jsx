@@ -8,7 +8,10 @@ function App() {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
 
- const [filterKategorija, setFilterKategorija] = useState("Vse");
+  const [sortiranje, setSortiranje] = useState("asc");
+
+  const [filterKategorija, setFilterKategorija] =
+    useState("Vse");
 
   const [form, setForm] = useState({
     registrska: "",
